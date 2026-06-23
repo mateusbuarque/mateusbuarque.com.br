@@ -1,0 +1,56 @@
+import "@/App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import { SiteSettingsProvider } from "./contexts/SiteSettingsContext";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import CampaignDetail from "./pages/CampaignDetail";
+import LoginPage from "./pages/LoginPage";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import StorePage from "./pages/StorePage";
+import OrderHistory from "./pages/OrderHistory";
+import LivePage from "./pages/LivePage";
+import VideosPage from "./pages/VideosPage";
+import SubscriptionPage from "./pages/SubscriptionPage";
+import CommunityPage from "./pages/CommunityPage";
+import ScreenProtection from "./components/ScreenProtection";
+
+function App() {
+  return (
+    <AuthProvider>
+      <SiteSettingsProvider>
+        <BrowserRouter>
+          <ScreenProtection />
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/campaign/:id" element={<CampaignDetail />} />
+                <Route path="/loja" element={<StorePage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/meus-pedidos" element={<OrderHistory />} />
+              <Route path="/live" element={<LivePage />} />
+              <Route path="/videos" element={<VideosPage />} />
+              <Route path="/assinatura" element={<SubscriptionPage />} />
+              <Route path="/comunidade" element={<CommunityPage />} />
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/payment/success" element={<PaymentSuccess />} />
+                <Route path="/pagamento-sucesso" element={<PaymentSuccess status="success" />} />
+                <Route path="/pagamento-pendente" element={<PaymentSuccess status="pending" />} />
+                <Route path="/pagamento-erro" element={<PaymentSuccess status="failure" />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </BrowserRouter>
+      </SiteSettingsProvider>
+    </AuthProvider>
+  );
+}
+
+export default App;
