@@ -42,9 +42,9 @@ export default function Home() {
     }
   };
 
-  const featured = campaigns.find((c) => c.is_active) || campaigns[0];
-  const activeCampaigns = campaigns.filter((c) => c.is_active);
-
+  const campaignsList = Array.isArray(campaigns) ? campaigns : [];
+  const featured = campaignsList.find((c) => c.is_active) || campaignsList[0];
+  const activeCampaigns = campaignsList.filter((c) => c.is_active);
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -97,7 +97,7 @@ export default function Home() {
                     <BookOpen size={20} className="text-zinc-950" />
                   </div>
                   <div>
-                    <div className="font-['Outfit'] font-black text-2xl">{campaigns.length}</div>
+                    <div className="font-['Outfit'] font-black text-2xl">{campaignsList.length}</div>
                     <div className="text-xs text-zinc-500 font-bold uppercase">Campanhas</div>
                   </div>
                 </div>
@@ -107,7 +107,7 @@ export default function Home() {
                   </div>
                   <div>
                     <div className="font-['Outfit'] font-black text-2xl">
-                      {campaigns.reduce((s, c) => s + (c.backers_count || 0), 0)}
+                      {campaignsList.reduce((s, c) => s + (c.backers_count || 0), 0)}
                     </div>
                     <div className="text-xs text-zinc-500 font-bold uppercase">Apoiadores</div>
                   </div>
@@ -118,7 +118,7 @@ export default function Home() {
                   </div>
                   <div>
                     <div className="font-['Outfit'] font-black text-2xl">
-                      R$ {campaigns.reduce((s, c) => s + (c.raised_amount || 0), 0).toLocaleString("pt-BR", { minimumFractionDigits: 0 })}
+                      R$ {campaignsList.reduce((s, c) => s + (c.raised_amount || 0), 0).toLocaleString("pt-BR", { minimumFractionDigits: 0 })}
                     </div>
                     <div className="text-xs text-zinc-500 font-bold uppercase">Arrecadado</div>
                   </div>
