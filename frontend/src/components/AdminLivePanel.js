@@ -5,8 +5,10 @@ import { Radio, VideoOff, Monitor, Camera, Settings2, Download, Eye, EyeOff, Tra
 import VisibilitySelector from "./VisibilitySelector";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const WS_URL = BACKEND_URL.replace("https://", "wss://").replace("http://", "ws://");
-
+const BACKEND_URL = (process.env.REACT_APP_BACKEND_URL || "").replace(/\/$/, "");
+const WS_URL = BACKEND_URL
+  ? BACKEND_URL.replace("https://", "wss://").replace("http://", "ws://")
+  : "";
 export default function AdminLivePanel() {
   const [isLive, setIsLive] = useState(false);
   const [title, setTitle] = useState("");
